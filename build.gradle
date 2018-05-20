@@ -1,0 +1,44 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+group = 'cn.wycode'
+sourceCompatibility = 1.8
+
+war {
+    baseName = 'web'
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web') //基本Web
+    compile("org.springframework.boot:spring-boot-starter-security") //Spring Security
+    compile('org.springframework.boot:spring-boot-starter-data-jpa') //Spring JPA
+    compile('com.h2database:h2') //h2 database
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("io.springfox:springfox-swagger2:2.7.0") //Swagger JSON generate
+
+    compile 'io.jsonwebtoken:jjwt:0.9.0' //JWT
+
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat' //运行时设置为已提供tomcat
+}
